@@ -66,7 +66,7 @@ void print_board(Board *board, int cursor_x, int cursor_y)
         for (int x = 0; x < board->width; x++)
         {
             Cell *cell = &board->cells[y * board->width + x];
-            move(y, x * 3);
+            move(y, x * 3 + 1);
             if (cursor_x == x && cursor_y == y)
             {
                 attron(A_REVERSE);
@@ -79,26 +79,26 @@ void print_board(Board *board, int cursor_x, int cursor_y)
             {
                 if (cell->is_mine)
                 {
-                    printw(" 💣 ");
+                    printw("💣");
                 }
                 else if (cell->num_mines == 0)
                 {
-                    printw("   ");
+                    printw(" ");
                 }
                 else
                 {
-                    printw(" %d ", cell->num_mines);
+                    printw("%d", cell->num_mines);
                 }
             }
             else
             {
                 if (cell->is_flagged)
                 {
-                    printw(" 🚩 ");
+                    printw("🚩");
                 }
                 else
                 {
-                    printw(" - ");
+                    printw("-");
                 }
             }
         }
@@ -306,7 +306,7 @@ int main(int argc, char **argv)
         }
     }
 
-    // srand((unsigned int)time(NULL));
+    srand((unsigned int)time(NULL));
     setlocale(LC_ALL, "");
 
     Board *board = malloc(sizeof(Board));
