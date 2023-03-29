@@ -22,8 +22,8 @@ typedef struct Board
     int width;
     int height;
     int num_mines;
-    Cell *cells;
     int num_revealed;
+    Cell *cells;
 } Board;
 
 void init_board(Board *board, int width, int height, int num_mines)
@@ -31,8 +31,8 @@ void init_board(Board *board, int width, int height, int num_mines)
     board->width = width;
     board->height = height;
     board->num_mines = num_mines;
-    board->cells = malloc(sizeof(Cell) * width * height);
     board->num_revealed = 0;
+    board->cells = malloc(sizeof(Cell) * width * height);
     for (int i = 0; i < width * height; i++)
     {
         board->cells[i].is_mine = 0;
@@ -161,7 +161,7 @@ void count_mines(Board *board)
 void reveal_cell(Board *board, int x, int y)
 {
     Cell *cell = &board->cells[y * board->width + x];
-    if (cell->is_revealed)
+    if (cell->is_revealed || cell->is_flagged)
     {
         return;
     }
